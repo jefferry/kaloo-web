@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <context id="mysqlTables" targetRuntime="MyBatis3">
+    	<!-- 生成的bean是否可序列化 -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+    	<!-- 是否重写EqualsHashCode方法 -->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" /> 
+
+        <commentGenerator>   
+            <property name="suppressAllComments" value="true" />  
+            <property name="suppressDate" value="true" /> 
+        </commentGenerator>
+        
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/mybatis" userId="root" password="root"/>
+        <javaTypeResolver>
+        	<!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        
+        <javaModelGenerator targetPackage="com.kaloo.domain" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        
+        <sqlMapGenerator targetPackage="com.kaloo.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        
+        <javaClientGenerator targetPackage="com.kaloo.integrace.dao" targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        
+        <!-- 可以多个table -->
+        <table schema="mybatis" tableName="t_user"  
+        	domainObjectName="User" 
+        	enableCountByExample="false"  
+        	enableUpdateByExample="false"  
+        	enableDeleteByExample="false"  
+        	enableSelectByExample="false"  
+        	selectByExampleQueryId="false">
+        	<!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample 是否生成 example类   -->
+            <!--  
+                column 数据库中字段名 
+                property POJO属性名 
+                javaType POJO类型
+				jdbcType 数据库字段类型
+        	       指定列的java数据类型 
+        	-->
+            <columnOverride column="user_id" javaType="java.lang.Long"/>
+            <!-- 忽略列，不生成bean 字段 -->  
+            <!-- <ignoreColumn column="" /> -->   
+        </table>
+    </context>
+</generatorConfiguration>
